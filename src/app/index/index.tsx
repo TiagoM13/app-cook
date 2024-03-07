@@ -1,6 +1,8 @@
 import React from 'react';
 import { Text, View } from 'react-native';
 
+import Ingredients from '@/components/Ingredients';
+
 import { styles } from './styles';
 
 const index = () => {
@@ -12,6 +14,8 @@ const index = () => {
       </Text>
 
       <Text style={styles.message}>Descubra receitas baseadas nos {'\n'} produtos que você escolheu</Text>
+
+      <Ingredients />
     </View>
   );
 }
