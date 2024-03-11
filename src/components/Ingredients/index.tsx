@@ -5,17 +5,12 @@ import Ingredient from '../Ingredient';
 
 import { styles } from './styles';
 
-const Ingredients: React.FC = () => {
-  const [selected, setSelected] = useState<string[]>([])
+type Props = {
+  selected: string[]
+  handleToggle: (index: string) => void
+}
 
-  function handleToggleSelected(value: string) {
-    if (selected.includes(value)) {
-      return setSelected((state) => state.filter((item) => item !== value))
-    }
-
-    setSelected((state) => [...state, value])
-  }
-
+const Ingredients = ({ selected, handleToggle }: Props) => {
   return (
     <ScrollView
       showsVerticalScrollIndicator={false}
@@ -24,10 +19,10 @@ const Ingredients: React.FC = () => {
       {Array.from({ length: 100 }).map((_, index) => (
         <Ingredient
           key={index}
-          name='Tomate'
+          name='Maça'
           image=''
           selected={selected.includes(String(index))}
-          onPress={() => handleToggleSelected(String(index))}
+          onPress={() => handleToggle(String(index))}
         />
       ))}
     </ScrollView>
