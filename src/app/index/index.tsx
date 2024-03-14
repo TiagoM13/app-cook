@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import { Alert, Text, View } from 'react-native';
+import { router } from 'expo-router';
 
 import Ingredients from '@/components/Ingredients';
+import Selected from '@/components/Selected';
 
 import { styles } from './styles';
-import Selected from '@/components/Selected';
 
 const index = () => {
   const [selected, setSelected] = useState<string[]>([])
@@ -24,6 +25,10 @@ const index = () => {
     ])
   }
 
+  function handleSearch() {
+    router.navigate("/recipes")
+  }
+
   return (
     <View style={styles.container}>
       <Text style={styles.title}>
@@ -39,7 +44,7 @@ const index = () => {
         <Selected
           quantity={selected.length}
           onClear={handleClearSelected}
-          onSearch={() => { }}
+          onSearch={handleSearch}
         />
       )}
     </View>
