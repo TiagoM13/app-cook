@@ -1,14 +1,17 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Alert, Text, View } from 'react-native';
 import { router } from 'expo-router';
 
 import Ingredients from '@/components/Ingredients';
 import Selected from '@/components/Selected';
 
+import { services } from '@/services'
+
 import { styles } from './styles';
 
 const index = () => {
   const [selected, setSelected] = useState<string[]>([])
+  const [ingredients, setIngredients] = useState<IngredientResponse[]>([])
 
   function handleToggleSelected(value: string) {
     if (selected.includes(value)) {
@@ -26,8 +29,12 @@ const index = () => {
   }
 
   function handleSearch() {
-    router.navigate("/recipes")
+    router.navigate("/recipes" + selected)
   }
+
+  useEffect(() => {
+    services.ingredients.findAll().then(setIngredients)
+  }, [])
 
   return (
     <View style={styles.container}>
@@ -38,7 +45,7 @@ const index = () => {
 
       <Text style={styles.message}>Descubra receitas baseadas nos {'\n'} produtos que você escolheu</Text>
 
-      <Ingredients selected={selected} handleToggle={handleToggleSelected} />
+      <Ingredients ingredients={ingredients} selected={selected} handleToggle={handleToggleSelected} />
 
       {selected.length > 0 && (
         <Selected
